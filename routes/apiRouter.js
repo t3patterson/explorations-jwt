@@ -16,7 +16,7 @@ apiRouter
      res.json(results)
    })
  })
- .post('/resources', function(req, res){)
+ .post('/resources', function(req, res){
      let newRecord = new Resource(req.body)
 
      newRecord.save(function(err, record){

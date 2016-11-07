@@ -17,5 +17,8 @@ const resourceSchema = new Schema({
 
 
 module.exports = {
-  // Resource: createModel('Resource', evaluationSchema)
+   /*
+    * NOTE: you would ideally change the export-value and the model-name
+    */
+  Resource: createModel('Resource', resourceSchema)
 }
