@@ -39,7 +39,7 @@ app.set('port', PORT)
 // =========
 // VIEW ENGINE
 // =========
-app.set('views', './dist/views');
+app.set('views', './public');
 app.engine('html', renderFile)
 app.set('view engine', 'html');
 
@@ -49,9 +49,9 @@ app.set('view engine', 'html');
 connectToDB(global.PROJECT_NAME)
 
 // =========
-// APPLICATION MIDDLEWARE 
+// APPLICATION MIDDLEWARE
 // =========
-app.use( express.static( __dirname + '/dist/assets') );
+app.use( express.static( __dirname + '/public/assets') );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded() );
 app.use( cookieParser() );
@@ -61,7 +61,7 @@ app.use( passport.session() );
 appAuthentication(User)
 app.use( appMiddleWare.cookifyUser )
 app.use( appMiddleWare.parseQuery )
-// 
+//
 // =========
 // ROUTERS
 // =========
