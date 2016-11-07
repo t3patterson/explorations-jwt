@@ -7,9 +7,9 @@ const Schema = mongoose.Schema;
 // ----------------------
 const resourceSchema = new Schema({
   // example of optional fields
-  // title:        { type: String, required: true },
-  // description:  { type: String },
-  // upVotes:      { type: Number   , default: 0 },
+  title:        { type: String, required: true },
+  description:  { type: String },
+  upVotes:      { type: Number, default: 0 },
   createdAt:    { type: Date, default: Date.now }
 
 })
