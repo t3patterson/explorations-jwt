@@ -1,49 +1,70 @@
 let Router = require('express').Router;
 const apiRouter = Router()
-let Example = require('../db/schema.js').Example
 
-  apiRouter
-    .get('/examples', function(req, res){
-      Example.find(req.query , "-password", function(err, results){
-        if(err) return res.json(err)
-        res.json(results)
-      })
-    })
+//NOTE: the model should not have the name 'Resource'  
+let Resource = require('../db/schema.js').Resource
 
-  apiRouter
-    .get('/examples/:_id', function(req, res){
-      Example.findById(req.params._id, "-password", function(err, record){
-        if(err || !record ) return res.json(err)
-        res.json(record)
-      })
-    })
+apiRouter
+ .get('/resources', function(req, res){
+   Resource.find(req.query , function(err, results){
+     if(err) return res.json(err)
+     res.json(results)
+   })
+ })
+ .post('/resources', function(req, res){
+     // passport appends json-data to request.body
+     // console.log(req.body)
+     let newRecord = new Resource(req.body)
 
-    .put('/examples/:_id', function(req, res){
+     newRecord.save(function(err, record){
+        if(err) return res.status(500).send('server/db error on attempt to save user to db')
+        let userCopy = newRecord.toObject()
+        delete userCopy.password
+        res.json(userCopy)
+     })
+ })
 
-      Example.findByIdAndUpdate(req.params._id, req.body, function(err, record){
-          if (err) {
-            res.status(500).send(err)
-          }
-          else if (!record) {
-            res.status(400).send('no record found with that id')
-          }
-          else {
-            res.json(Object.assign({},req.body,record))
-          }
-      })
-    })
 
-    .delete('/examples/:_id', function(req, res){
-      Example.remove({ _id: req.params._id}, (err) => {
-        if(err) return res.json(err)
-        res.json({
-          msg: `record ${req.params._id} successfully deleted`,
-          _id: req.params._id
-        })
-      })
-    })
+apiRouter
+ .get('/resources/:_id', function(req, res){
+   Resource.findById(req.params._id, "-password", function(err, record){
+     if(err || !record ) return res.json(err)
+     res.json(record)
+   })
+ })
 
-    // Routes for a Model(resource) should have this structure
+ .put('/resources/:_id', function(req, res){
 
+   Resource.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+       if (err) {
+         res.status(500).send(err)
+       }
+       else if (!record) {
+         res.status(400).send('no record found with that id')
+       }
+       else {
+         res.json(Object.assign({},req.body,record))
+       }
+   })
+ })
+
+ .delete('/resources/:_id', function(req, res){
+   Resource.remove({ _id: req.params._id}, (err) => {
+     if(err) return res.json(err)
+     res.json({
+       msg: `record ${req.params._id} successfully deleted`,
+       _id: req.params._id
+     })
+   })
+ })
+
+ // .delete("/resources/all/records", function(req, res){
+ //   Resource.remove({}, (err) => {
+ //     if(err) return res.json(err)
+ //     res.json({
+ //       msg: `EVEYTHING successfully deleted`
+ //     })
+ //   })
+ // })
 
 module.exports = apiRouter

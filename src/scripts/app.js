@@ -2,9 +2,14 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import Backbone from 'backbone'
 
+const AppViewController = React.createClass({
+   render: function(){
+      return (
+         <div>
+            <h1>Hellooo</h1>
+         </div>
+      )
+   }
+})
 
-const app = function() {
-  document.querySelector('.container').innerHTML = "<h1>Woah!</h1>"
-}
-
-app()
+ReactDOM.render( <AppViewController/> ,document.querySelector('#app-container'))

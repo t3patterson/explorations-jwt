@@ -3,17 +3,19 @@ const createModel = mongoose.model.bind(mongoose);
 const Schema = mongoose.Schema;
 
 // ----------------------
-// USERS
+// PRODUCT
 // ----------------------
-const exampleSchema = new Schema({
+const resourceSchema = new Schema({
   // example of optional fields
-  name:      { type: String },
-  createdAt: { type: Date, default: Date.now }
+  // title:        { type: String, required: true },
+  // description:  { type: String },
+  // upVotes:      { number: String, default: 0 },
+  createdAt:    { type: Date, default: Date.now }
 
 })
 
 
 
 module.exports = {
-  Example: createModel('Example', exampleSchema)
+  // Resource: createModel('Resource', evaluationSchema)
 }

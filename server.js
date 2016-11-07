@@ -1,4 +1,5 @@
 
+
 if (!global.PROJECT_NAME) { //« set by npm run init-dev »
 	throw new Error('no project name set. did you forget to run "npm run init-dev"?')
 }
@@ -23,7 +24,7 @@ let indexRouter = require('./routes/indexRouter.js')
 let apiRouter = require('./routes/apiRouter.js')
 
 // Load DB User Model (for appAuthentication configuration)
-let User = require('./db/schema.js').User
+let Example = require('./db/schema.js').Example
 
 
 // =========
@@ -50,7 +51,7 @@ connectToDB(global.PROJECT_NAME)
 // =========
 app.use( express.static( __dirname + '/public/assets') );
 app.use( bodyParser.json() );
-app.use( bodyParser.urlencoded() );
+app.use( bodyParser.urlencoded({extended: true}) );
 app.use( cookieParser() );
 app.use( appMiddleWare.parseQuery )
 //
