@@ -1,4 +1,4 @@
-global.PROJECT_NAME = null
+global.PROJECT_NAME = 'awesome-so-awesome'
 
 if (!global.PROJECT_NAME) { //« set by npm run init-dev »
 	throw new Error('no project name set. did you forget to run "npm run init-dev"?')
@@ -17,12 +17,10 @@ const renderFile = require('ejs').renderFile
 // Load Configuration
 const appMiddleWare = require('./config/middleware.js')
 const appSecrets = require('./config/secrets.js')
-const appAuthentication = require('./config/auth.js')
 const connectToDB = require('./config/db-setup.js').connectToDB
 
 // Import Routers
 let indexRouter = require('./routes/indexRouter.js')
-let authRouter = require('./routes/authRouter.js')
 let apiRouter = require('./routes/apiRouter.js')
 
 // Load DB User Model (for appAuthentication configuration)
@@ -55,11 +53,6 @@ app.use( express.static( __dirname + '/public/assets') );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded() );
 app.use( cookieParser() );
-app.use( session({secret: appSecrets.sessionSecret }) );
-app.use( passport.initialize() );
-app.use( passport.session() );
-appAuthentication(User)
-app.use( appMiddleWare.cookifyUser )
 app.use( appMiddleWare.parseQuery )
 //
 // =========
@@ -67,7 +60,6 @@ app.use( appMiddleWare.parseQuery )
 // =========
 
 app.use( '/', indexRouter )
-app.use( '/auth', authRouter )
 app.use( '/api', apiRouter )
 
 app.use(appMiddleWare.errorHandler);

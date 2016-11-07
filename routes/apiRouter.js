@@ -1,28 +1,26 @@
 let Router = require('express').Router;
 const apiRouter = Router()
-let helpers = require('../config/helpers.js')
+let Example = require('../db/schema.js').Example
 
-let User = require('../db/schema.js').User
-
-  
   apiRouter
-    .get('/users', function(req, res){
-      User.find(req.query , "-password", function(err, results){
-        if(err) return res.json(err) 
+    .get('/examples', function(req, res){
+      Example.find(req.query , "-password", function(err, results){
+        if(err) return res.json(err)
         res.json(results)
       })
     })
 
   apiRouter
-    .get('/users/:_id', function(req, res){
-      User.findById(req.params._id, "-password", function(err, record){
-        if(err || !record ) return res.json(err) 
+    .get('/examples/:_id', function(req, res){
+      Example.findById(req.params._id, "-password", function(err, record){
+        if(err || !record ) return res.json(err)
         res.json(record)
       })
     })
-    .put('/users/:_id', function(req, res){
 
-      User.findByIdAndUpdate(req.params._id, req.body, function(err, record){
+    .put('/examples/:_id', function(req, res){
+
+      Example.findByIdAndUpdate(req.params._id, req.body, function(err, record){
           if (err) {
             res.status(500).send(err)
           }
@@ -35,14 +33,14 @@ let User = require('../db/schema.js').User
       })
     })
 
-    .delete('/users/:_id', function(req, res){
-      User.remove({ _id: req.params._id}, (err) => {
+    .delete('/examples/:_id', function(req, res){
+      Example.remove({ _id: req.params._id}, (err) => {
         if(err) return res.json(err)
         res.json({
           msg: `record ${req.params._id} successfully deleted`,
           _id: req.params._id
         })
-      })  
+      })
     })
 
     // Routes for a Model(resource) should have this structure

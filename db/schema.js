@@ -15,5 +15,5 @@ const exampleSchema = new Schema({
 
 
 module.exports = {
-  Example: createModel('Example', usersSchema)
+  Example: createModel('Example', exampleSchema)
 }

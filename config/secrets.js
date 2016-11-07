@@ -1,3 +1,1 @@
-module.exports = {
-	sessionSecret: 'friendship'
-}
+module.exports = {}
