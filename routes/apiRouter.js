@@ -21,9 +21,9 @@ apiRouter
 
      newRecord.save(function(err, record){
         if(err) return res.status(500).send('server/db error on attempt to save user to db')
-        let userCopy = newRecord.toObject()
-        delete userCopy.password
-        res.json(userCopy)
+        let objCopy = newRecord.toObject()
+        delete objCopy.password
+        res.json(objCopy)
      })
  })
 
