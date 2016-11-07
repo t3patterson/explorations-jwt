@@ -1,19 +1,22 @@
 let Router = require('express').Router;
 const apiRouter = Router()
 
-//NOTE: the model should not have the name 'Resource'  
+/*
+ * NOTE: the model for the data-table should not have the name 'Resource'
+ */
 let Resource = require('../db/schema.js').Resource
 
 apiRouter
+/*
+ * NOTE: the route should have a name that matches the name of the data-table
+ */
  .get('/resources', function(req, res){
    Resource.find(req.query , function(err, results){
      if(err) return res.json(err)
      res.json(results)
    })
  })
- .post('/resources', function(req, res){
-     // passport appends json-data to request.body
-     // console.log(req.body)
+ .post('/resources', function(req, res){)
      let newRecord = new Resource(req.body)
 
      newRecord.save(function(err, record){
@@ -58,6 +61,7 @@ apiRouter
    })
  })
 
+ // TO DELETE ALL:
  // .delete("/resources/all/records", function(req, res){
  //   Resource.remove({}, (err) => {
  //     if(err) return res.json(err)

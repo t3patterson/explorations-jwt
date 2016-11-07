@@ -3,7 +3,7 @@ const createModel = mongoose.model.bind(mongoose);
 const Schema = mongoose.Schema;
 
 // ----------------------
-// PRODUCT
+// DATA TABLE
 // ----------------------
 const resourceSchema = new Schema({
   // example of optional fields
