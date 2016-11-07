@@ -9,9 +9,6 @@ if (!global.PROJECT_NAME) { //« set by npm run init-dev »
 
 const bodyParser = require('body-parser');
 const express = require('express');
-const cookieParser = require('cookie-parser');
-const session = require('express-session');
-const passport = require('passport');
 const renderFile = require('ejs').renderFile
 
 // Load Configuration
@@ -52,7 +49,6 @@ connectToDB(global.PROJECT_NAME)
 app.use( express.static( __dirname + '/public/assets') );
 app.use( bodyParser.json() );
 app.use( bodyParser.urlencoded({extended: true}) );
-app.use( cookieParser() );
 app.use( appMiddleWare.parseQuery )
 //
 // =========
