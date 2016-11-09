@@ -20,7 +20,7 @@ apiRouter
      let newRecord = new Resource(req.body)
 
      newRecord.save(function(err, record){
-        if(err) return res.status(500).send('server/db error on attempt to save user to db')
+        if(err) return res.status(500).send(err)
         let objCopy = newRecord.toObject()
         delete objCopy.password
         res.json(objCopy)
