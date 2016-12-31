@@ -10,7 +10,9 @@ import * as Auth from './services/authtoken'
 
 const AppViewController = React.createClass({
 	getInitialState: function(){
-		STORE.setStore('isAuthenticated', Auth.isAuthenticated())
+    	console.log(Auth.isAuthenticated())
+		STORE.setStore('userAuthenticated', Auth.isAuthenticated())
+		console.log(Auth.isAuthenticated())
 		return STORE._data
 	},
 
@@ -22,13 +24,14 @@ const AppViewController = React.createClass({
 	},
 
    render: function(){
-		console.log( Auth.getToken() )
+		console.log( Auth.getToken() , Auth.isAuthenticated())
+	   console.log(this.state.userAuthenticated)
       return (
          <div>
             <h1>Welcome</h1>
 				<RegisterForm/>
 				<hr/>
-				{ this.state.isAuthenticated ? <DashboardView/> : <ForbiddenView/>}
+				{ this.state.userAuthenticated ? <DashboardView/> : <ForbiddenView/>}
          </div>
       )
    }

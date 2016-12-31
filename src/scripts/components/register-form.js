@@ -22,7 +22,7 @@ const RegisterForm = React.createClass({
 			console.log('awesome, saved')
 			console.log(res)
 			Auth.setToken(res.token)
-			STORE.setStore('isAuthenticated', Auth.isAuthenticated() )
+			STORE.setStore('userAuthenticated', Auth.isAuthenticated() )
 		}).fail(function(err){
          console.log(err)
       })

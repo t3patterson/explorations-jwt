@@ -2,11 +2,11 @@
 
 const AppState = {
 	_data: {
-		isAuthenticated: false
+		userAuthenticated: false
 	},
 
 	setStore: function(storeProp, payload){
-		this[storeProp] = payload
+		this._data[storeProp] = payload
 		if(typeof this.storeChangeCb === 'function') this.storeChangeCb()
 	},
 
