@@ -17,6 +17,8 @@ const indexRouter = require('./routes/indexRouter.js')
 
 const {cors} = require('./config/middleware.js')
 
+const {encodeJwt} = require('./services/jwt.js')
+
 var app = express()
 const PORT = process.env.PORT || 3000
 
@@ -47,3 +49,5 @@ app.listen(PORT,function() {
 })
 
 connectToDB(global.PROJECT_NAME)
+
+console.log(encodeJwt({yodog: 'hwy lets dance for awhile in my pants for awhile'}, 'shoosh'))
