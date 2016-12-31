@@ -1,5 +1,7 @@
 import React from 'react';
 import $ from 'jquery';
+import * as Auth from '../services/authtoken'
+import STORE from '../store.js'
 
 const RegisterForm = React.createClass({
    _handleSubmit: function(evt){
@@ -19,8 +21,11 @@ const RegisterForm = React.createClass({
 		}).then(function(res){
 			console.log('awesome, saved')
 			console.log(res)
-		})
-      
+			Auth.setToken(res.token)
+			STORE.setStore('isAuthenticated', Auth.isAuthenticated() )
+		}).fail(function(err){
+         console.log(err)
+      })
    },
 
    render: function(){

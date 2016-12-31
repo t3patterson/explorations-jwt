@@ -1,6 +1,4 @@
 const crypto = require('crypto')
-// let {encode} = require('jwt-simple');
-
 
 function _base64Encode(str){
 	return Buffer.from(str, 'utf8').toString('base64')
