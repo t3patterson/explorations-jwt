@@ -8,8 +8,6 @@ const authRouter = Router()
 // Middleware Functions
 let createNewUser = function(UserModel, jwtLib){
   const UserMod = UserModel
-  console.log('the User Model')
-  console.log(UserMod)
   return function(req, res, next){
 	 let newRecord = new UserMod(req.body)
     newRecord.save(function(err, record){
@@ -32,7 +30,6 @@ let createNewUser = function(UserModel, jwtLib){
 
 let checkIfUserExists = function(UserModel){
 	const UserMod = UserModel
-   console.log('go for it!')
 	return function(req, res, next){
 		UserMod.findOne({email: req.body.email})
 		   .exec()

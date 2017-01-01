@@ -12,7 +12,7 @@ indexRouter.get('/', function (req, res) {
 // ---------
 
 
-// MiddlewareFunctions
+// Middleware Functions
 function checkHeaders(req, res ,next){
 	if(!req.headers.authorization) {
 		return res.status(401).send('You are not authorized')
