@@ -9,6 +9,26 @@ const DashboardView = React.createClass({
 		STORE.setStore('userAuthenticated', Auth.isAuthenticated() )
    },
 
+   componentDidMount: function(){
+			console.log("???")
+
+		$.ajaxSetup({
+			beforeSend: function (xhr) {
+				let authHeader = Auth.getToken() ? `Bearer ${Auth.getToken()}` : ''
+				xhr.setRequestHeader('Authorization', authHeader);
+			}
+		})
+      $.ajax({
+				url: '/protected-data'
+      }).then(function(res){
+			console.log('success!')
+			console.log(res)
+		}).fail(function(err){
+			console.log('FAIL')
+			console.log(err)
+		})
+   },
+
    render: function(){
       return (
          <div>
@@ -16,7 +36,7 @@ const DashboardView = React.createClass({
    			   <h2>Hallo, Dashboard!!!</h2>
    			</div>
             <button className="btn sm bg-fail" onClick={this._handleLogout}>Logout</button>
-
+			
          </div>
       )
    }

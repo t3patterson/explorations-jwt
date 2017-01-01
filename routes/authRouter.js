@@ -12,7 +12,7 @@ let createNewUser = function(req, res, UserMod){
 	  
      let payload = {
 	    iss: req.hostname, //issuer of payload
-       sub: record._id
+       sub: newRecord.id
 	  }
 
 	  let token = encodeJwt(payload, 'shhh...')
@@ -26,7 +26,6 @@ let createNewUser = function(req, res, UserMod){
 
 authRouter
  .post('/register', function(req, res){
-   
      User.findOne({email: req.body.email})
         .exec()
         .then((foundUser)=>{

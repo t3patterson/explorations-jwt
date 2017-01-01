@@ -1,6 +1,6 @@
 # Setup JWT
 
-### `UserModel.js` -- server
+### (1) `UserModel.js` -- server
 + include mongoose + bcrypt
 + write a pre-save hook method that will salt+hash the password
 + overwrite the toJSON() method that will delete the pw for the response
@@ -36,7 +36,7 @@ UserSchema.methods.toJSON = function(){
 module.exports = UserSchema
 ```
 
-### `services/jwt.js` -- -- server
+### (2)`services/jwt.js` -- -- server
 + creates `«header-base64».«payload-base64».«signature-base64»` jwt
 + 
 
@@ -69,7 +69,7 @@ module.exports = { encodeJwt  }
 ```
 
 
-### `authRouter.js` -- `/auth/register` route for register-- server
+### (3)`authRouter.js` -- `/auth/register` route for register-- server
 ```
 let Router = require('express').Router;
 let {User} = require('../db/schema.js')
@@ -112,4 +112,41 @@ let createNewUser = function(req, res, UserMod){
 
 ```
 
+### (4)`services/authtoken.js` -- client
++ manages setting and retrieving the token from local storage
+```
+const appName = `${window.location.hostname}_APP_TOKEN`
+let cachedToken
 
+function getToken(){
+	if(!cachedToken){
+		cachedToken = window.localStorage.getItem(appName)
+	}
+	return cachedToken
+}
+
+function setToken(token){
+	cachedToken = token
+	window.localStorage.setItem(appName, token)
+}
+
+function removeToken(){
+	cachedToken = null
+	window.localStorage.removeItem(appName)
+}
+
+function isAuthenticated(){
+	return !!getToken()
+}
+
+
+
+module.exports = {
+	getToken,
+	setToken,
+	isAuthenticated,
+	removeToken	
+}
+```
+
+### ``
