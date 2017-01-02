@@ -43,19 +43,21 @@ const AppViewController = React.createClass({
 
 const HomeView = React.createClass({
 	render: function(){
-		return <section className="segment">
-			<h1>Welcome to the jwt party</h1>
-			<img src="https://unsplash.it/800/400?image=332" style={{display: 'block', width: '100%'}}></img>
-		</section>
+		return (
+			<section className="segment">
+				<h1>Welcome to the jwt party</h1>
+				<img src="https://unsplash.it/800/400?image=332" style={{display: 'block', width: '100%'}}></img>
+			</section>
+		)
 	}
 })
 
 const View404 = React.createClass({
 	render: function(){
-		return <section className="segment">
+		return (<section className="segment">
 			<h1>Nothing found at this extension</h1>
 			<p>Perhaps you'd like to go <Link to="/">home</Link></p>
-		</section>
+		</section>)
 	}
 })
 

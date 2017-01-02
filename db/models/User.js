@@ -8,6 +8,11 @@ const UserSchema = new Schema({
   password:     { type: String, required: true }
 })
 
+UserSchema.methods.comparePasswords = function(pw, cb){
+	bcrypt.compare(pw, this.password, cb)
+}
+
+
 UserSchema.pre('save', function(next){
 	if(!this.isModified('password')) return next()
 	
