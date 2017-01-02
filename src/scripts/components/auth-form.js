@@ -1,7 +1,8 @@
 import React from 'react';
 import $ from 'jquery';
-import * as Auth from '../services/authtoken'
+import * as AuthToken from '../services/authtoken'
 import STORE from '../store.js'
+import * as API_AUTH from '../services/api-auth.js'
 
 const AuthForm = React.createClass({
    _handleSubmit: function(evt){
@@ -10,19 +11,16 @@ const AuthForm = React.createClass({
          email: evt.target.email.value ,
          password: evt.target.password.value
       }
-		
-		$.ajax({
-			method: 'POST',
-			url: this.props.formType === 'register' ? '/auth/register': '/auth/login',
-			headers : {
-				"Content-Type" : 'application/json'
-			},
-			data: JSON.stringify(submission)
-		}).then(function(res){
+
+		let getToken
+      if (this.props.route.path === 'register') getToken = API_AUTH.register(submission)
+		if (this.props.route.path === 'login') getToken = API_AUTH.login(submission)
+
+		getToken.then(function(res){
 			console.log('awesome, saved')
 			console.log(res)
-			Auth.setToken(res.token)
-			STORE.setStore('userAuthenticated', Auth.isAuthenticated() )
+			AuthToken.setToken(res.token)
+			STORE.setStore('userAuthenticated', AuthToken.isAuthenticated() )
 		}).fail(function(err){
          console.log(err)
       })

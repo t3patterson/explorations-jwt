@@ -7,15 +7,15 @@ import DashboardView from './components/dashboard.js';
 import Navbar from './components/navbar.js';
 
 import STORE from './store.js';
-import * as Auth from './services/authtoken';
+import * as AuthToken from './services/authtoken';
 
 
 
 const AppViewController = React.createClass({
 	getInitialState: function(){
-    	console.log(Auth.isAuthenticated())
-		STORE.setStore('userAuthenticated', Auth.isAuthenticated())
-		console.log(Auth.isAuthenticated())
+    	console.log(AuthToken.isAuthenticated())
+		STORE.setStore('userAuthenticated', AuthToken.isAuthenticated())
+		console.log(AuthToken.isAuthenticated())
 		return STORE._data
 	},
 

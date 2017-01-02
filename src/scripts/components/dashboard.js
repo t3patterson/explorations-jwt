@@ -2,30 +2,29 @@ import React from 'react'
 import {Link} from 'react-router'
 
 import $ from 'jquery';
-import * as Auth from '../services/authtoken'
+import * as AuthToken from '../services/authtoken'
 import STORE from '../store.js'
+import * as API_APP from '../services/api-app.js'
+
+
 
 const DashboardView = React.createClass({
    _handleLogout: function(){
-      Auth.removeToken()
-		STORE.setStore('userAuthenticated', Auth.isAuthenticated() )
+      AuthToken.removeToken()
+		STORE.setStore('userAuthenticated', AuthToken.isAuthenticated() )
 		location.hash = ''
    },
 
    componentDidMount: function(){
-      $.ajax({
-				headers: {
-					Authorization: Auth.getToken() ? `Bearer ${Auth.getToken()}` : ''
-				},
-				url: '/protected-data'
-      }).then(function(res){
-			console.log('success!')
-			console.log(res)
-		}).fail(function(err){
-			console.log('FAIL')
-			console.log(err)
-			location.hash = "/forbidden"
-		})
+      API_APP.fetchData()
+			.then(function(res){
+				console.log('success!')
+				console.log(res)
+			}).fail(function(err){
+				console.log('FAIL')
+				console.log(err)
+				location.hash = "/forbidden"
+			})
    },
 
    render: function(){
